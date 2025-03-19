@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>抽卡系統動畫效果</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    #startBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    #cardDisplay {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 400px;
+    }
+    #cardDisplay img {
+      max-width: 80%;
+      height: auto;
+      border: 2px solid #333;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+      transform: scale(0); /* 初始縮小 */
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+    /* 定義放大動畫 */
+    @keyframes enlarge {
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>抽卡系統動畫效果</h1>
+  <button id="startBtn">Start</button>
+  <div id="cardDisplay"></div>
+
+  <script>
+    // 預設牌組陣列，請依照你所提供的圖片檔名來設定
+    const cards = [
+      "card1.jpg",
+      "card2.jpg",
+      "card3.jpg"
+    ];
+
+    const startBtn = document.getElementById('startBtn');
+    const cardDisplay = document.getElementById('cardDisplay');
+
+    startBtn.addEventListener('click', () => {
+      // 隨機產生 0 至 cards 陣列長度-1 的索引值
+      const randomIndex = Math.floor(Math.random() * cards.length);
+      const selectedCard = cards[randomIndex];
+      
+      // 創建 img 元素
+      const img = document.createElement('img');
+      img.src = selectedCard;
+      img.alt = "抽出的卡牌";
+      
+      // 清空先前的顯示內容，並加入新的卡牌
+      cardDisplay.innerHTML = '';
+      cardDisplay.appendChild(img);
+      
+      // 加入動畫效果：從縮小到原本大小且漸漸顯現
+      img.style.animation = 'enlarge 1s ease-out forwards';
+    });
+  </script>
+</body>
+</html>
